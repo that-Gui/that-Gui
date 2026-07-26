@@ -51,10 +51,10 @@ Coffee .... yes
 
 ### the charts, such as they are
 
-<!-- ponytail: generated into this repo by the nightly Action, so it renders even when
-     the free stats hosts are rate-limiting. The two below are remote URLs and are not. -->
-![metrics](./github-metrics.svg)
-
+<!-- ponytail: these two are remote URLs, so they break when the free hosts rate-limit.
+     A locally-generated card (lowlighter/metrics) needs a classic PAT as METRICS_TOKEN —
+     GITHUB_TOKEN is scoped to this repo alone and renders an empty card. Add the token
+     and the job when a broken image here actually becomes annoying. -->
 ![activity](https://github-readme-activity-graph.vercel.app/graph?username=that-Gui&bg_color=00000000&color=8b949e&line=3178c6&point=8b949e&area=true&hide_border=true)
 
 ![streak](https://streak-stats.demolab.com/?user=that-Gui&background=00000000&hide_border=true&ring=3178C6&fire=3178C6&currStreakLabel=8B949E&sideLabels=8B949E&dates=8B949E)
