@@ -58,7 +58,7 @@
      documents hide_longest_streak but no public instance honours it, so the two
      numbers are scraped and rendered as badges instead of using that card. -->
 <!--stats-->
-![total contributions](https://img.shields.io/badge/total_contributions-950-3178C6?style=for-the-badge&labelColor=0d1117)
+![total contributions](https://img.shields.io/badge/total_contributions-951-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![current streak](https://img.shields.io/badge/current_streak-1_day-F05138?style=for-the-badge&labelColor=0d1117)
 <!--/stats-->
