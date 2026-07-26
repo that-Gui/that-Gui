@@ -47,7 +47,10 @@ Coffee .... yes
 
 ### the snake eats my commits
 
-![snake](https://raw.githubusercontent.com/that-Gui/that-Gui/output/github-snake-dark.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/that-Gui/that-Gui/output/github-snake-dark.svg">
+  <img alt="a snake eating my contribution graph" src="https://raw.githubusercontent.com/that-Gui/that-Gui/output/github-snake.svg">
+</picture>
 
 ### the charts, such as they are
 
