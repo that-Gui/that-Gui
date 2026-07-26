@@ -54,13 +54,8 @@
 
 ### the charts, such as they are
 
-<!-- ponytail: this block is rewritten nightly by scripts/stats.py. streak-stats
-     documents hide_longest_streak but no public instance honours it, so the two
-     numbers are scraped and rendered as badges instead of using that card. -->
-<!--stats-->
-![total contributions](https://img.shields.io/badge/total_contributions-951-3178C6?style=for-the-badge&labelColor=0d1117)
+![total contributions](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fstreak-stats.demolab.com%2F%3Fuser%3Dthat-Gui%26type%3Djson&query=%24.totalContributions&label=total%20contributions&color=3178C6&style=for-the-badge&labelColor=0d1117&cacheSeconds=21600)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![current streak](https://img.shields.io/badge/current_streak-1_day-F05138?style=for-the-badge&labelColor=0d1117)
-<!--/stats-->
+![current streak](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fstreak-stats.demolab.com%2F%3Fuser%3Dthat-Gui%26type%3Djson&query=%24.currentStreak.length&label=current%20streak%20%28days%29&color=F05138&style=for-the-badge&labelColor=0d1117&cacheSeconds=21600)
 
 ![activity](https://github-readme-activity-graph.vercel.app/graph?username=that-Gui&bg_color=00000000&color=8b949e&line=3178c6&point=8b949e&area=true&hide_border=true)

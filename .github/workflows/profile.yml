@@ -27,22 +27,3 @@ jobs:
           build_dir: dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  stats:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: python3 scripts/stats.py --test
-      - run: python3 scripts/stats.py
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git diff --quiet README.md || {
-            git commit -qam "stats: refresh contribution badges"
-            git push
-          }
-
-# ponytail: there was a lowlighter/metrics job here. GITHUB_TOKEN is scoped to this
-# repo alone, so user-level queries came back empty and it rendered a "0 Languages"
-# card. Bringing it back needs a classic PAT with repo scope stored as METRICS_TOKEN.
-# The snake above needs no secret because it reads the public contribution calendar.
