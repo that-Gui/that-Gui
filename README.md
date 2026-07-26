@@ -29,8 +29,8 @@
              HTML + CSS  █████░░░░░░░░░░░░░░░  23%
              Swift       ██░░░░░░░░░░░░░░░░░░  10%
  Origin .... HTML → JavaScript → shipping things
- Now ....... an ETL that argues with Google Sheets,
-             and an iOS app nobody has seen yet
+ Now ....... automating vulnerability triage so the
+             boring 90% never reaches a human
  Coffee .... yes
 ```
 
