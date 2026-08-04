@@ -1,7 +1,7 @@
 <!--
   ponytail: this card is hand-written on purpose.
-  Numbers measured 2026-07-26 from the GitHub API across owned, non-fork repos
-  (534,946 bytes total). The mix moves about a percent a year, so regenerating
+  Numbers measured 2026-08-04 from the GitHub API across owned, non-fork repos
+  (275,789 bytes total). The mix moves about a percent a year, so regenerating
   it nightly would be machinery in service of nothing. Re-run this when it
   starts to feel wrong:
 
@@ -22,12 +22,12 @@
  ───────────────────────────────────────────────────────
  OS ........ macOS · zsh · nvim when nobody is watching
  Uptime .... 5 yrs, 4 mos (booted 21 Mar 2021)
- Repos ..... 24 owned · 55 public · 0 finished
- Code ...... 535 KB, a worrying amount of it CSS
- Langs ..... TypeScript  ████████░░░░░░░░░░░░  40%
-             JavaScript  █████░░░░░░░░░░░░░░░  27%
-             HTML + CSS  █████░░░░░░░░░░░░░░░  23%
-             Swift       ██░░░░░░░░░░░░░░░░░░  10%
+ Repos ..... 13 owned · 12 public · 0 finished
+ Code ...... 269 KB, a worrying amount of it Swift
+ Langs ..... TypeScript  ████████░░░░░░░░░░░░  38%
+             JavaScript  ██████░░░░░░░░░░░░░░  29%
+             Swift       ████░░░░░░░░░░░░░░░░  20%
+             HTML + CSS  ██░░░░░░░░░░░░░░░░░░  12%
  Origin .... HTML → JavaScript → shipping things
  Now ....... automating vulnerability triage so the
              boring 90% never reaches a human
@@ -54,8 +54,15 @@
 
 ### the charts, such as they are
 
-![total contributions](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fstreak-stats.demolab.com%2F%3Fuser%3Dthat-Gui%26type%3Djson&query=%24.totalContributions&label=total%20contributions&color=3178C6&style=for-the-badge&labelColor=0d1117&cacheSeconds=21600)
+<!-- ponytail: this block is rewritten nightly by scripts/stats.ts. streak-stats
+     documents hide_longest_streak but no public instance honours it, so the two
+     numbers are scraped and rendered as badges instead of using that card.
+     These URLs are static on purpose: routing them through shields dynamic/json
+     meant camo cached an INACCESSIBLE badge every time demolab was slow. -->
+<!--stats-->
+![total contributions](https://img.shields.io/badge/total_contributions-826-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![current streak](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fstreak-stats.demolab.com%2F%3Fuser%3Dthat-Gui%26type%3Djson&query=%24.currentStreak.length&label=current%20streak%20%28days%29&color=F05138&style=for-the-badge&labelColor=0d1117&cacheSeconds=21600)
+![current streak](https://img.shields.io/badge/current_streak-1_day-F05138?style=for-the-badge&labelColor=0d1117)
+<!--/stats-->
 
 ![activity](https://github-readme-activity-graph.vercel.app/graph?username=that-Gui&bg_color=00000000&color=8b949e&line=3178c6&point=8b949e&area=true&hide_border=true)
