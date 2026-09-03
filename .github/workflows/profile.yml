@@ -10,22 +10,27 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: profile
+  cancel-in-progress: false
+
 jobs:
   profile:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.PROFILE_TOKEN }}
       - run: node scripts/stats.ts --test
       - run: node scripts/stats.ts
-      - uses: Platane/snk@v3
+      - uses: Platane/snk@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3.5.0
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/github-snake-dark.svg?palette=github-dark
             dist/github-snake.svg
-      - uses: crazy-max/ghaction-github-pages@v5
+      - uses: crazy-max/ghaction-github-pages@1d6ee9b181a81033a16bd707a1401afa978daab4 # v5.0.0
         with:
           target_branch: output
           build_dir: dist
@@ -35,6 +40,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git diff --quiet README.md || {
-            git commit -qam "stats: refresh contribution badges"
+            git add README.md
+            git commit -qm "stats: refresh contribution badges"
             git push
           }

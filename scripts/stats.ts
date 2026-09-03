@@ -23,11 +23,35 @@ export function parseCalendar(html: string): Days {
   return days;
 }
 
-async function fetchYear(user: string, year: number): Promise<Days> {
+const ATTEMPTS = 3;
+const RETRY_DELAY_MS = 2_000;
+const FETCH_TIMEOUT_MS = 30_000;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchYear(
+  user: string,
+  year: number,
+  fetchImpl: typeof fetch = fetch,
+  retryDelayMs = RETRY_DELAY_MS,
+): Promise<Days> {
   const url = `https://github.com/users/${user}/contributions?from=${year}-01-01&to=${year}-12-31`;
-  const res = await fetch(url, { headers: { "User-Agent": "that-Gui-profile-stats" } });
-  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
-  return parseCalendar(await res.text());
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetchImpl(url, {
+        headers: { "User-Agent": "that-Gui-profile-stats" },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (!res.ok) throw new Error(`${url} -> ${res.status}`);
+      const days = parseCalendar(await res.text());
+      if (Object.keys(days).length === 0)
+        throw new Error(`${year}: parsed 0 contribution days (markup moved or error page)`);
+      return days;
+    } catch (err) {
+      if (attempt >= ATTEMPTS) throw err instanceof Error ? err : new Error(String(err));
+      await sleep(retryDelayMs * attempt);
+    }
+  }
 }
 
 export function currentStreak(days: Days, today: Date): number {
@@ -90,7 +114,7 @@ ${labels.join("")}
 </svg>`;
 }
 
-function test() {
+async function test() {
   const today = new Date("2026-07-26T00:00:00Z");
 
   const live = { "2026-07-26": 3, "2026-07-25": 1, "2026-07-24": 2 };
@@ -133,6 +157,27 @@ function test() {
     "tooltip counts join to cells by id",
   );
 
+  // the fetch path: transient failures retry, permanent ones fail loudly
+  const dayHtml =
+    `<td data-date="2026-07-26" id="contribution-day-component-9-1"></td>` +
+    `<tool-tip for="contribution-day-component-9-1">3 contributions on July 26th.</tool-tip>`;
+
+  let calls = 0;
+  const flaky: typeof fetch = async () =>
+    ++calls < 3 ? new Response("slow down", { status: 503 }) : new Response(dayHtml);
+  assert.deepEqual(await fetchYear(USER, 2026, flaky, 0), { "2026-07-26": 3 }, "transient failures are retried");
+  assert.equal(calls, 3, "third time lucky");
+
+  const down: typeof fetch = async () => new Response("nope", { status: 503 });
+  await assert.rejects(fetchYear(USER, 2026, down, 0), /503/, "a dead endpoint exhausts its attempts");
+
+  const loginPage: typeof fetch = async () => new Response("<html>sign in</html>");
+  await assert.rejects(
+    fetchYear(USER, 2026, loginPage, 0),
+    /2026: parsed 0 contribution days/,
+    "a page with no calendar fails loudly, naming the year",
+  );
+
   console.log("ok");
 }
 
@@ -162,5 +207,5 @@ async function main() {
   console.log(`total=${total} streak=${streak}`);
 }
 
-if (process.argv.includes("--test")) test();
-else main();
+if (process.argv.includes("--test")) await test();
+else await main();
