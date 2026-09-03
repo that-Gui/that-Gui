@@ -21,7 +21,7 @@ jobs:
           outputs: |
             dist/github-snake-dark.svg?palette=github-dark
             dist/github-snake.svg
-      - uses: crazy-max/ghaction-github-pages@v4
+      - uses: crazy-max/ghaction-github-pages@v5
         with:
           target_branch: output
           build_dir: dist
@@ -31,7 +31,12 @@ jobs:
   stats:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # ponytail: main is protected by a ruleset that blocks GITHUB_TOKEN pushes;
+      # PROFILE_TOKEN is a fine-grained PAT (Contents: RW, this repo only) owned by a
+      # bypass actor, and checkout's persisted creds make the git push below use it.
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.PROFILE_TOKEN }}
       # ponytail: no setup-node. The runner ships node 22.x and type stripping is
       # default-on from 22.18, so scripts/stats.ts runs with no deps and no build.
       # --test runs first: it fails here rather than writing a wrong README.
