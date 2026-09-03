@@ -62,7 +62,7 @@
 <!--stats-->
 ![total contributions](https://img.shields.io/badge/total_contributions-902-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![current streak](https://img.shields.io/badge/current_streak-1_day-F05138?style=for-the-badge&labelColor=0d1117)
+![current streak](https://img.shields.io/badge/current_streak-0_days-F05138?style=for-the-badge&labelColor=0d1117)
 <!--/stats-->
 
 ![activity](https://github-readme-activity-graph.vercel.app/graph?username=that-Gui&bg_color=00000000&color=8b949e&line=3178c6&point=8b949e&area=true&hide_border=true)
