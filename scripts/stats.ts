@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const USER = "that-Gui";
 const JOINED = 2021;
@@ -49,6 +49,47 @@ export function badges(total: number, streak: number): string {
   ].join("\n").replace(/,/g, "%2C");
 }
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WINDOW = 180;
+const W = 980;
+const H = 260;
+const TOP = 16;
+const BASE = 230;
+const PAD = 8;
+const LINE = "#3178c6";
+const MUTED = "#8b949e";
+
+export function renderActivitySvg(days: Days, today: Date): string {
+  const series: number[] = [];
+  for (let i = WINDOW - 1; i >= 0; i--) series.push(days[iso(shift(today, -i))] ?? 0);
+  const max = Math.max(1, ...series);
+  const x = (i: number) => PAD + (i * (W - 2 * PAD)) / (WINDOW - 1);
+  const y = (v: number) => BASE - ((BASE - TOP) * v) / max;
+  const pts = series.map((v, i) => [x(i).toFixed(1), y(v).toFixed(1)] as const);
+  const line = `M${pts.map(([px, py]) => `${px},${py}`).join("L")}`;
+  const area = `${line}L${x(WINDOW - 1).toFixed(1)},${BASE}L${x(0).toFixed(1)},${BASE}Z`;
+
+  const labels: string[] = [];
+  for (let i = 1; i < WINDOW; i++) {
+    const d = shift(today, -(WINDOW - 1 - i));
+    if (d.getUTCMonth() === shift(d, -1).getUTCMonth()) continue;
+    const px = x(i);
+    if (px < 36 || px > W - 36) continue;
+    labels.push(
+      `<text x="${px.toFixed(1)}" y="252" text-anchor="middle" font-size="11" font-family="Segoe UI,Helvetica,Arial,sans-serif" fill="${MUTED}">${MONTHS[d.getUTCMonth()]}</text>`,
+    );
+  }
+
+  const dots = pts.map(([px, py]) => `<circle cx="${px}" cy="${py}" r="1.5" fill="${MUTED}"/>`).join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="contribution activity, last ${WINDOW} days">
+<path d="${area}" fill="${LINE}" fill-opacity="0.3"/>
+<path d="${line}" fill="none" stroke="${LINE}" stroke-width="1.5"/>
+${dots}
+<line x1="${PAD}" y1="${BASE}" x2="${W - PAD}" y2="${BASE}" stroke="${MUTED}" stroke-opacity="0.35"/>
+${labels.join("")}
+</svg>`;
+}
+
 function test() {
   const today = new Date("2026-07-26T00:00:00Z");
 
@@ -64,6 +105,19 @@ function test() {
   assert.ok(badges(1, 1).includes("1_day"), "singular");
   assert.ok(badges(2, 2).includes("2_days"), "plural");
   assert.ok(badges(1234, 0).includes("1%2C234"), "thousands separator survives the URL");
+
+  const flat = renderActivitySvg({}, today);
+  assert.ok(flat.includes('viewBox="0 0 980 260"'), "the canvas is 980x260");
+  assert.ok(flat.includes("M8.0,230.0"), "no history is a flat line on the baseline");
+  assert.ok(flat.includes("L972.0,230.0"), "the last day lands on the right edge");
+
+  const peaked = renderActivitySvg({ [iso(today)]: 100 }, today);
+  assert.ok(peaked.includes("972.0,16.0"), "the max day touches the top of the chart");
+  assert.ok(peaked.includes("M8.0,230.0"), "zero days stay on the baseline");
+
+  const dated = renderActivitySvg({}, new Date("2026-07-26T00:00:00Z"));
+  assert.ok(dated.includes(">Mar<") && dated.includes(">Jul<"), "month boundaries are labelled");
+  assert.ok(!dated.includes(">Feb<"), "a boundary too close to the left edge is dropped");
 
   // the parse the python version got wrong: counts live in the tooltip, not the cell
   const html = `
@@ -96,6 +150,10 @@ async function main() {
   const readme = readFileSync(README, "utf8");
   const block = `<!--stats-->\n${badges(total, streak)}\n<!--/stats-->`;
   const updated = readme.replace(/<!--stats-->[\s\S]*?<!--\/stats-->/, () => block);
+
+  mkdirSync("dist", { recursive: true });
+  writeFileSync("dist/activity.svg", renderActivitySvg(days, today));
+
   if (updated === readme) {
     console.log("no change");
     return;
