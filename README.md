@@ -1,16 +1,3 @@
-<!--
-  ponytail: this card is hand-written on purpose.
-  Numbers measured 2026-08-04 from the GitHub API across owned, non-fork repos
-  (275,789 bytes total). The mix moves about a percent a year, so regenerating
-  it nightly would be machinery in service of nothing. Re-run this when it
-  starts to feel wrong:
-
-    gh api graphql -f query='{ user(login:"that-Gui") { repositories(first:100,
-      ownerAffiliations:OWNER, isFork:false) { nodes { languages(first:15,
-      orderBy:{field:SIZE,direction:DESC}) { edges { size node { name } } } } } } }' \
-      --jq '.data.user.repositories.nodes[].languages.edges[] | "\(.node.name)\t\(.size)"' \
-      | awk -F'\t' '{s[$1]+=$2; t+=$2} END {for (l in s) printf "%-12s %5.1f%%\n", l, 100*s[l]/t}'
--->
 
 ```
  ████████╗██╗  ██╗ █████╗ ████████╗ ██████╗ ██╗   ██╗██╗
@@ -34,8 +21,6 @@
  Coffee .... yes
 ```
 
-<!-- ponytail: C# and AWS render text-only — simple-icons dropped both logos, so
-     every csharp/amazon*/aws slug on shields returns a badge with no icon. -->
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
@@ -54,11 +39,6 @@
 
 ### the charts, such as they are
 
-<!-- ponytail: this block is rewritten nightly by scripts/stats.ts. streak-stats
-     documents hide_longest_streak but no public instance honours it, so the two
-     numbers are scraped and rendered as badges instead of using that card.
-     These URLs are static on purpose: routing them through shields dynamic/json
-     meant camo cached an INACCESSIBLE badge every time demolab was slow. -->
 <!--stats-->
 ![total contributions](https://img.shields.io/badge/total_contributions-902-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,21 +1,3 @@
-/**
- * Rewrite the stats badges in README.md from the public contribution calendar.
- *
- * ponytail: this exists because streak-stats.demolab.com documents
- * hide_longest_streak but no public instance actually honours it, so there is no
- * URL that renders total-contributions + current-streak alone. Scraping the same
- * public page streak-stats scrapes needs no token and no service. The badges it
- * writes are static, so they cannot render INACCESSIBLE when a third party is
- * down — which is exactly what shields dynamic/json did before this came back.
- *
- * ponytail: scraped totals run ~2.6% above GraphQL (826 vs 805) on recent years.
- * That buys a script with no PAT and no service. Swap fetchYear for a
- * contributionsCollection query behind a STATS_TOKEN secret if it must be exact.
- *
- * No deps: needs node >= 22.18 for native type stripping and global fetch.
- * Run `node scripts/stats.ts --test` for the self-check.
- */
-
 import { strict as assert } from "node:assert";
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -28,13 +10,6 @@ type Days = Record<string, number>;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 const shift = (d: Date, days: number) => new Date(d.getTime() + days * 86_400_000);
 
-/**
- * {date: count} from the contributions grid.
- *
- * The cell carries the date and a 0-4 level but no count; the count lives in a
- * sibling tool-tip joined to it by id. GitHub used to render an "N contributions
- * in YYYY" heading and no longer does, so the year total is summed from days.
- */
 export function parseCalendar(html: string): Days {
   const counts = new Map(
     [...html.matchAll(/for="(contribution-day-component-[\d-]+)"[^>]*>(?:<[^>]*>)*\s*(No|[\d,]+) contribution/g)]
@@ -55,12 +30,6 @@ async function fetchYear(user: string, year: number): Promise<Days> {
   return parseCalendar(await res.text());
 }
 
-/**
- * Consecutive days with activity ending today, or yesterday if today is idle.
- *
- * Today counts as a grace day: an unfinished day should not read as a broken
- * streak at 09:00.
- */
 export function currentStreak(days: Days, today: Date): number {
   let cursor = days[iso(today)] > 0 ? today : shift(today, -1);
   let streak = 0;
