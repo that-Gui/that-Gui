@@ -74,7 +74,7 @@ export function badges(total: number, streak: number): string {
 }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const WINDOW = 180;
+const WINDOW = 30;
 const W = 980;
 const H = 260;
 const TOP = 16;
@@ -140,8 +140,14 @@ async function test() {
   assert.ok(peaked.includes("M8.0,230.0"), "zero days stay on the baseline");
 
   const dated = renderActivitySvg({}, new Date("2026-07-26T00:00:00Z"));
-  assert.ok(dated.includes(">Mar<") && dated.includes(">Jul<"), "month boundaries are labelled");
-  assert.ok(!dated.includes(">Feb<"), "a boundary too close to the left edge is dropped");
+  assert.ok(dated.includes(">Jul<"), "the month boundary inside the window is labelled");
+  assert.ok(!dated.includes(">Jun<"), "no label for a month that never starts inside the window");
+
+  const freshMonth = renderActivitySvg({}, new Date("2026-08-01T00:00:00Z"));
+  assert.ok(!freshMonth.includes(">Aug<"), "a boundary too close to the right edge is dropped");
+
+  const startsOnFirst = renderActivitySvg({}, new Date("2026-07-30T00:00:00Z"));
+  assert.ok(!startsOnFirst.includes(">Jul<"), "a boundary on day one of the window is dropped");
 
   // the parse the python version got wrong: counts live in the tooltip, not the cell
   const html = `
