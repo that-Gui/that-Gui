@@ -10,12 +10,12 @@
  OS ........ macOS · zsh · nvim when nobody is watching
  Uptime .... 5 yrs, 4 mos (booted 21 Mar 2021)
  Repos ..... 13 owned · 12 public · 0 finished
- Code ...... 269 KB, a worrying amount of it Swift
- Langs ..... TypeScript  ████████░░░░░░░░░░░░  38%
-             JavaScript  ██████░░░░░░░░░░░░░░  29%
-             Swift       ████░░░░░░░░░░░░░░░░  20%
-             HTML + CSS  ██░░░░░░░░░░░░░░░░░░  12%
- Origin .... HTML → JavaScript → shipping things
+ Code ...... 269 KB, a worrying amount of it TypeScript
+ Langs ..... TypeScript  █████████░░░░░░░░░░░  45%
+             Terraform   ████░░░░░░░░░░░░░░░░  20%
+             Python      ████░░░░░░░░░░░░░░░░  20%
+             C#          ███░░░░░░░░░░░░░░░░░  15%
+ Origin .... HTML → TypeScript → shipping things
  Now ....... automating vulnerability triage so the
              boring 90% never reaches a human
  Coffee .... yes
@@ -28,7 +28,7 @@
 ![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120?style=flat-square)
 ![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Swift](https://img.shields.io/badge/Swift-F05138?style=flat-square&logo=swift&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=flat-square&logo=terraform&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square)
 
