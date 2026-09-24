@@ -39,7 +39,7 @@
 ### the charts, such as they are
 
 <!--stats-->
-![total contributions](https://img.shields.io/badge/total_contributions-857-3178C6?style=for-the-badge&labelColor=0d1117)
+![total contributions](https://img.shields.io/badge/total_contributions-859-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![current streak](https://img.shields.io/badge/current_streak-1_day-F05138?style=for-the-badge&labelColor=0d1117)
 <!--/stats-->
