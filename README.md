@@ -9,12 +9,11 @@
  ───────────────────────────────────────────────────────
  OS ........ macOS · zsh · nvim when nobody is watching
  Uptime .... 5 yrs, 4 mos (booted 21 Mar 2021)
- Repos ..... 13 owned · 12 public · 0 finished
  Code ...... 269 KB, a worrying amount of it TypeScript
- Langs ..... TypeScript  █████████░░░░░░░░░░░  45%
-             Terraform   ████░░░░░░░░░░░░░░░░  20%
-             Python      ████░░░░░░░░░░░░░░░░  20%
-             C#          ███░░░░░░░░░░░░░░░░░  15%
+ Langs ..... TypeScript  ██████████░░░░░░░░░░  50%
+             Terraform   █████░░░░░░░░░░░░░░░  25%
+             C#          ████░░░░░░░░░░░░░░░░  20%
+             Python      █░░░░░░░░░░░░░░░░░░░   5%
  Origin .... HTML → TypeScript → shipping things
  Now ....... automating vulnerability triage so the
              boring 90% never reaches a human
