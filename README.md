@@ -39,9 +39,9 @@
 ### the charts, such as they are
 
 <!--stats-->
-![total contributions](https://img.shields.io/badge/total_contributions-884-3178C6?style=for-the-badge&labelColor=0d1117)
+![total contributions](https://img.shields.io/badge/total_contributions-888-3178C6?style=for-the-badge&labelColor=0d1117)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![current streak](https://img.shields.io/badge/current_streak-2_days-F05138?style=for-the-badge&labelColor=0d1117)
+![current streak](https://img.shields.io/badge/current_streak-3_days-F05138?style=for-the-badge&labelColor=0d1117)
 <!--/stats-->
 
 ![activity](https://raw.githubusercontent.com/that-Gui/that-Gui/output/activity.svg)
